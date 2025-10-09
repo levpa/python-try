@@ -26,7 +26,8 @@ check-build:
 
 chlog-write:
 	@git log -n 10 --pretty=format:"- %h %s" > CHANGELOG.md
-	cat CHANGELOG.md
+	@git add CHANGELOG.md
+	@cat CHANGELOG.md
 
 precommit:
 	bash ./scripts/hook.sh

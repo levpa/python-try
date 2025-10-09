@@ -1,0 +1,10 @@
+- 90682e0 changelog added to release
+- c067816 changelog added to release
+- a60af0a changelog added to release
+- a3453a8 pipe fix
+- eab07c0 pipe fix
+- 628a444 pipeline fix
+- b022b7d tools for pipeline added
+- 9ae3703 bump script changes
+- 2511744 bump added in Makefile
+- e3fedb9 more checks, pre-commit hook
