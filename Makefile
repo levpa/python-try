@@ -1,4 +1,4 @@
-.PHONY: verify test hook lint check-build precommit
+.PHONY: verify test hook lint check-build precommit release
 
 verify:
 	@echo "🔍 Verifying Python environment..."
@@ -26,3 +26,9 @@ check-build:
 
 precommit:
 	bash ./scripts/hook.sh
+
+BUMP ?= patch
+
+release:
+	@echo "🚀 Releasing version bump..."
+	bash scripts/bump.sh $(BUMP)
