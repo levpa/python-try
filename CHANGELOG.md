@@ -1,10 +1,10 @@
+- 8679710 Merge remote-tracking branch 'refs/remotes/origin/main'
+- 403c03e ignore in dependabot
+- 7facfd1 Merge pull request #3 from levpa/dependabot/pip/src/types-requests-2.32.4.20250913
+- 3e26d24 Bump types-requests from 2.32.0.20240602 to 2.32.4.20250913 in /src
 - 806af9f dependabot fix
 - b1388bf Dependabot updates
 - d370465 minor fixes
 - 881bb4e local make docker-build
 - 9e9671c syntax fix, broken pipe
 - 99660c4 new version injection
-- 9c481de fix pathes
-- 5900cb6 broken pipe fix
-- a71690a broken pipe fix
-- 9810c12 types-requests added
