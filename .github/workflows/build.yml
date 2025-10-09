@@ -28,7 +28,7 @@ jobs:
       - name: tests, checks, verifications
         run: |
           make verify lint test check-build
-          make version_inject
+          make version-inject
 
       - name: 🚀 Extract version metadata from version.py
         run: |

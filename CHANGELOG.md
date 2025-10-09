@@ -1,3 +1,4 @@
+- 99660c4 new version injection
 - 9c481de fix pathes
 - 5900cb6 broken pipe fix
 - a71690a broken pipe fix
@@ -7,4 +8,3 @@
 - f83567d more structured fs
 - 12220b5 precommit hook added to bootstrap, python version bumped to 3.13
 - 9b43cbf  more readme info
-- e859d99 check all stuff
