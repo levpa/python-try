@@ -23,12 +23,20 @@
 			},
 			"extensions": [
 				"ms-python.python",
-				"ms-python.vscode-pylance"
+				"ms-python.vscode-pylance",
+				"github.vscode-github-actions",
+				"eamodio.gitlens"
 			]
 		}
 	},
 	"forwardPorts": [
-		8000
+		8080
 	],
+	"portsAttributes": {
+		"8080": {
+			"label": "Python HTTP Server",
+			"onAutoForward": "openBrowser"
+		}
+	},
 	"postCreateCommand": "./scripts/dev-bootstrap.sh"
 }
