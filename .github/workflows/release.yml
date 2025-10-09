@@ -20,4 +20,4 @@ jobs:
           TAG_NAME="${GITHUB_REF#refs/tags/}"
           gh release create "$TAG_NAME" \
             --title "$TAG_NAME" \
-            --notes "Automated release for tag $TAG_NAME"
+            --notes-file CHANGELOG.md

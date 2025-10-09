@@ -32,10 +32,11 @@ make precommit
 git sm "new signed commit"
 git push
 
-## bump version and push tags to remote
-cd scripts
-./scripts/bump.sh <patch|minor|major>
-# → bumps patch -> 1.2.3/1.2.4 minor -> 1.2.3/1.3.3 -> major 1.2.3/2.2.3 version
+## bump version and push tags to remote (default -> patch version)
+# runs build -> push pipeline to ghcr
+# runs release pipeline to make release on github
+make release
+# make release <patch/minor/major>
 
 ## Server test
 python server.py

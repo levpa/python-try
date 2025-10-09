@@ -1,4 +1,4 @@
-.PHONY: verify test hook lint check-build precommit release
+.PHONY: verify test hook lint check-build precommit release chlog-write
 
 verify:
 	@echo "🔍 Verifying Python environment..."
@@ -23,6 +23,10 @@ check-build:
 	@python -m pip check
 # 	@echo "🐳 Building Docker image..."
 # 	@docker build -t myserver .
+
+chlog-write:
+	@git log -n 10 --pretty=format:"- %h %s" > CHANGELOG.md
+	cat CHANGELOG.md
 
 precommit:
 	bash ./scripts/hook.sh
