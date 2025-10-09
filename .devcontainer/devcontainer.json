@@ -25,7 +25,9 @@
 				"ms-python.python",
 				"ms-python.vscode-pylance",
 				"github.vscode-github-actions",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"christian-kohler.path-intellisense",
+				"visualstudioexptteam.vscodeintellicode"
 			]
 		}
 	},

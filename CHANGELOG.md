@@ -1,3 +1,4 @@
+- b1388bf Dependabot updates
 - d370465 minor fixes
 - 881bb4e local make docker-build
 - 9e9671c syntax fix, broken pipe
@@ -7,4 +8,3 @@
 - a71690a broken pipe fix
 - 9810c12 types-requests added
 - af1da22 pipe fix
-- 9c1b00e deps scan, dockerignore

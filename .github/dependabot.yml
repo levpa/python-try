@@ -1,31 +1,26 @@
 version: 2
 updates:
-  # 🔧 Dev Container updates (Dockerfile, devcontainer.json)
   - package-ecosystem: "devcontainers"
     directory: "/.devcontainer"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
 
-  # ⚙️ GitHub Actions workflows
   - package-ecosystem: "github-actions"
     directory: "/.github"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
     ignore:
-      # ignore updates
       - dependency-name: "actions/setup-python"
-        versions: ["*"]
+        versions: ["3.x"]
 
-  # 🐍 Python dependencies (src/requirements.txt)
   - package-ecosystem: "pip"
     directory: "/src"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
 
-  # 🐳 Dockerfile in root
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
