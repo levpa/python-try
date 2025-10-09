@@ -44,5 +44,5 @@ python server.py
 ## Build and run container inside devcontainer
 docker build -t server . && docker run -p 8080:8080 server
 
-# open browser... observe server logs in terminal
+# open browser... observe server logs
 ```
