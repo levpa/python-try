@@ -16,6 +16,8 @@ if ! command -v python3.12 &> /dev/null; then
   exit 1
 fi
 
+python3.12 -m pip install --upgrade pip
+
 # Run Makefile targets
 echo "🔍 Running make verify..."
 make verify

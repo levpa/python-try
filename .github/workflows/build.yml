@@ -19,12 +19,14 @@ jobs:
         with:
           python-version: '3.12'
 
+      - name: Install python tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install ruff mypy pytest
+
       - name: tests, checks, verifications
         run: |
-          make verify
-          make lint
-          make test
-          make check-build
+          make verify lint test check-build
 
       - name: 🚀 Additional data for image labels
         run: |
