@@ -27,8 +27,8 @@ check-build:
 precommit:
 	bash ./scripts/hook.sh
 
-BUMP ?= patch
+BUMP_TYPE ?= patch
 
 release:
 	@echo "🚀 Releasing version bump..."
-	bash scripts/bump.sh $(BUMP)
+	bash scripts/bump.sh $(BUMP_TYPE)
