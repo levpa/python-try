@@ -19,7 +19,6 @@
 	"customizations": {
 		"vscode": {
 			"settings": {
-				"python.defaultInterpreterPath": "/usr/local/bin/python3.12",
 				"editor.formatOnSave": true
 			},
 			"extensions": [

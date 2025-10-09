@@ -4,7 +4,7 @@ set -euo pipefail
 echo "🚀 Bootstrapping Dev Container..."
 
 # Update system packages
-# sudo apt-get update && sudo apt-get upgrade -y
+sudo apt-get update && sudo apt-get upgrade -y
 
 # Set timezone to Europe/Kyiv
 sudo ln -sf /usr/share/zoneinfo/Europe/Kyiv /etc/localtime
@@ -17,6 +17,7 @@ if ! command -v python3.13 &> /dev/null; then
 fi
 
 python3.13 -m pip install --upgrade pip
+pip install -r requirements.txt
 
 # Run Makefile targets
 echo "🔍 Running make verify..."

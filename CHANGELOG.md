@@ -1,3 +1,4 @@
+- 12220b5 precommit hook added to bootstrap, python version bumped to 3.13
 - 9b43cbf  more readme info
 - e859d99 check all stuff
 - 90682e0 changelog added to release
@@ -7,4 +8,3 @@
 - eab07c0 pipe fix
 - 628a444 pipeline fix
 - b022b7d tools for pipeline added
-- 9ae3703 bump script changes

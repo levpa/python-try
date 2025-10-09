@@ -8,10 +8,10 @@ Template python repository
 ## DevContainer configuration
 
 ```sh
-# install precommit hook (need to run once after 'git clone')
+# install/rewrite precommit hook (run once after 'git clone')
 make precommit
 
-# Devcontainer config(features and extensions): 
+# Devcontainer config(docker image, VS Code features and extensions): 
 ./devcontainer/devcontainer.json
 
 # Run devcontainer (WSL2), creates dev environment in container
@@ -30,22 +30,25 @@ Ctrl + Shift + P: Dev Containers: Open Container/Rebuild Container.
 
 ## Main dev commands
 ```sh
-# Commit add and signing: 
-# executed with git alias: sm = !git add -A && git commit -S -m
+# install deps if needed
+pip install -r requirements.txt
+
+# Commit add and signing with SSH keys: 
 git sm "new signed commit"
 git push
 
 ## bump version and push tags to remote (default -> patch version)
+
 # !! runs build -> push pipeline to ghcr
 # !! runs release pipeline to make release on github
-make release
-# make release <patch/minor/major>
 
-## Server test
-python server.py
+make release # make release <patch/minor/major>
 
-## Build and run container inside devcontainer
-docker build -t server . && docker run -p 8080:8080 server
+## Server local test
+python src/server.py
+
+## Build and run from Docker(DinD) inside devcontainer
+docker build -t py-server . && docker run -p 8080:8080 py-server
 
 # open browser... observe server logs in terminal
 ```
