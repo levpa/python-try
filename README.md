@@ -55,3 +55,15 @@ docker build -t py-server . && docker run -p 8080:8080 py-server
 
 # open browser... observe server logs in terminal
 ```
+
+## Debug image labels
+
+```sh
+export IMAGE=ghcr.io/levpa/python-try:v0.0.14
+
+# Pull the image
+docker pull $IMAGE
+IMAGE_ID=$(docker images --format '{{.Repository}}:{{.Tag}} {{.ID}}' | grep $IMAGE | awk '{print $2}')
+echo -e "\nIMAGE_ID: $IMAGE_ID\n"
+docker inspect "$IMAGE_ID" --format='{{json .Config.Labels}}' | jq
+```

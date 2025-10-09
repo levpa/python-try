@@ -1,4 +1,5 @@
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
+from version import VERSION, COMMIT, BUILD_DATE
 import sys
 import requests
 
@@ -21,9 +22,14 @@ class SimpleHandler(BaseHTTPRequestHandler):
 response = requests.get("https://api.github.com")
 try:
     data = response.json()
-    print("✅ JSON detected:", data)
+    user_related = {k: v for k, v in data.items() if 'user' in k.lower()}
+    print("🔍 Filtered 'user' keys:\n")
+    for key, value in user_related.items():
+        print(f"{key}: {value}")
 except ValueError:
     print("❌ Not JSON. Content-Type:", response.headers.get("Content-Type"))
+
+print(f"\nVersion: {VERSION}, Commit: {COMMIT}, Built: {BUILD_DATE}\n")
 
 if __name__ == "__main__":
     host = "0.0.0.0"

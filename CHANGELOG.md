@@ -1,3 +1,4 @@
+- 9c481de fix pathes
 - 5900cb6 broken pipe fix
 - a71690a broken pipe fix
 - 9810c12 types-requests added
@@ -7,4 +8,3 @@
 - 12220b5 precommit hook added to bootstrap, python version bumped to 3.13
 - 9b43cbf  more readme info
 - e859d99 check all stuff
-- 90682e0 changelog added to release
