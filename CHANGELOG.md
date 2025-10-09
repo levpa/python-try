@@ -1,3 +1,4 @@
+- f83567d more structured fs
 - 12220b5 precommit hook added to bootstrap, python version bumped to 3.13
 - 9b43cbf  more readme info
 - e859d99 check all stuff
@@ -7,4 +8,3 @@
 - a3453a8 pipe fix
 - eab07c0 pipe fix
 - 628a444 pipeline fix
-- b022b7d tools for pipeline added
