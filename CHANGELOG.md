@@ -1,3 +1,4 @@
+- 806af9f dependabot fix
 - b1388bf Dependabot updates
 - d370465 minor fixes
 - 881bb4e local make docker-build
@@ -7,4 +8,3 @@
 - 5900cb6 broken pipe fix
 - a71690a broken pipe fix
 - 9810c12 types-requests added
-- af1da22 pipe fix

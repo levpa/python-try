@@ -13,7 +13,7 @@ updates:
     open-pull-requests-limit: 5
     ignore:
       - dependency-name: "actions/setup-python"
-        versions: ["3.x"]
+        versions: ["3.13"]
 
   - package-ecosystem: "pip"
     directory: "/src"
@@ -26,3 +26,6 @@ updates:
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 5
+    ignore:
+      - dependency-name: "python"
+        versions: ["3.13-slim-bookworm"]
