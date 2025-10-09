@@ -2,7 +2,7 @@
 
 verify:
 	@echo "🔍 Verifying Python environment..."
-	@python3.12 --version
+	@python3.13 --version
 	@pip --version
 	@pip check
 	@echo "✅ Environment verification complete."

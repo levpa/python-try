@@ -1,3 +1,4 @@
+- 9b43cbf  more readme info
 - e859d99 check all stuff
 - 90682e0 changelog added to release
 - c067816 changelog added to release
@@ -7,4 +8,3 @@
 - 628a444 pipeline fix
 - b022b7d tools for pipeline added
 - 9ae3703 bump script changes
-- 2511744 bump added in Makefile
