@@ -34,6 +34,7 @@ jobs:
           echo "COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
           echo "DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV
           echo "REPO=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
+          echo "REGISTRY=ghcr.io/levpa/python-try" >> GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -47,8 +48,6 @@ jobs:
 
       - name: Build and push
         uses: docker/build-push-action@v6
-        env:
-          REGISTRY: ghcr.io/levpa/python-try
         with:
           context: .
           push: true
@@ -62,3 +61,8 @@ jobs:
             org.opencontainers.image.created=${{ env.DATE }}
             org.opencontainers.image.description=minimalistic Python image for backend development
             org.opencontainers.image.licenses=MIT
+
+      - name: Show image size
+        run: |
+          SIZE=$(docker image inspect "${{ env.REGISTRY }}:${{ env.VERSION }}" --format='{{.Size}}')
+          echo "### Image size: $((SIZE / 1024 / 1024)) MB" >> $GITHUB_STEP_SUMMARY
