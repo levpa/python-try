@@ -1,3 +1,4 @@
+- af1da22 pipe fix
 - 9c1b00e deps scan, dockerignore
 - f83567d more structured fs
 - 12220b5 precommit hook added to bootstrap, python version bumped to 3.13
@@ -7,4 +8,3 @@
 - c067816 changelog added to release
 - a60af0a changelog added to release
 - a3453a8 pipe fix
-- eab07c0 pipe fix

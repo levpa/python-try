@@ -33,6 +33,9 @@ Ctrl + Shift + P: Dev Containers: Open Container/Rebuild Container.
 # install deps if needed
 pip install -r requirements.txt
 
+# CI test
+make verify lint test check-build
+
 # Commit add and signing with SSH keys: 
 git sm "new signed commit"
 git push
