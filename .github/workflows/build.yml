@@ -1,4 +1,4 @@
-name: Build and Push to ECR
+name: Test/Build/Push to GHCR
 
 on:
   push:
