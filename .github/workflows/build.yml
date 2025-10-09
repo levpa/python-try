@@ -61,8 +61,3 @@ jobs:
             org.opencontainers.image.created=${{ env.DATE }}
             org.opencontainers.image.description=minimalistic Python image for backend development
             org.opencontainers.image.licenses=MIT
-
-      - name: Show image size
-        run: |
-          SIZE=$(docker image inspect "${{ env.REGISTRY }}:${{ env.VERSION }}" --format='{{.Size}}')
-          echo "### Image size: $((SIZE / 1024 / 1024)) MB" >> $GITHUB_STEP_SUMMARY
