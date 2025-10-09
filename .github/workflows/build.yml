@@ -1,0 +1,62 @@
+name: Build and Push to ECR
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: read
+  packages: write
+  pull-requests: read
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: tests, checks, verifications
+        run: |
+          make verify
+          make lint
+          make test
+          make check-build
+
+      - name: 🚀 Additional data for image labels
+        run: |
+          echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+          echo "COMMIT=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+          echo "DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> $GITHUB_ENV
+          echo "REPO=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6
+        env:
+          REGISTRY: ghcr.io/levpa/python-try
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}:${{ env.VERSION }},${{ env.REGISTRY }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}:buildcache
+          cache-to: type=registry,ref=${{ env.REGISTRY }}:buildcache,mode=max
+          labels: |
+            org.opencontainers.image.source=${{ env.REPO }}
+            org.opencontainers.image.version=${{ env.VERSION }}
+            org.opencontainers.image.revision=${{ env.COMMIT }}
+            org.opencontainers.image.created=${{ env.DATE }}
+            org.opencontainers.image.description=minimalistic Python image for backend development
+            org.opencontainers.image.licenses=MIT

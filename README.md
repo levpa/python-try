@@ -8,7 +8,10 @@ Template python repository
 ## DevContainer configuration
 
 ```sh
-# Config file: 
+# install precommit hook
+make precommit
+
+# Devcontainer config: 
 ./devcontainer/devcontainer.json
 
 # files binding from WSL host:
@@ -27,6 +30,12 @@ Template python repository
 # Commit add and signing: 
 # executed with git alias: sm = !git add -A && git commit -S -m
 git sm "new signed commit"
+git push
+
+## bump version and push tags to remote
+cd scripts
+./scripts/bump.sh <patch|minor|major>
+# → bumps patch -> 1.2.3/1.2.4 minor -> 1.2.3/1.3.3 -> major 1.2.3/2.2.3 version
 
 ## Server test
 python server.py
