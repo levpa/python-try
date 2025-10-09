@@ -1,6 +1,7 @@
 .PHONY: verify test hook lint check-build precommit release chlog-write version-inject docker-build
 
 SRC_FOLDER := src
+REPO := levpa/python-try
 verify:
 	@echo "🔍 Verifying Python environment..."
 	@python3.13 --version
@@ -22,8 +23,6 @@ check-build:
 	@echo "🧱 Checking Python build integrity..."
 	@python -m compileall -q $(SRC_FOLDER)/
 	@python -m pip check
-# 	@echo "🐳 Building Docker image..."
-# 	@docker build -t myserver .
 
 chlog-write:
 	@git log -n 10 --pretty=format:"- %h %s" > CHANGELOG.md
@@ -54,6 +53,7 @@ docker-build:
 		--label version=$(VERSION) \
 		--label commit=$(COMMIT) \
 		--label build_date=$(BUILD_DATE) \
-		--label repo=https://github.com/levpa/python-try \
-		--label registry=ghcr.io/levpa/python-try \
-		-t ghcr.io/levpa/python-try:$(VERSION) .
+		--label repo=https://github.com/$(REPO) \
+		--label registry=ghcr.io/$(REPO) \
+		-t ghcr.io/$(REPO):$(VERSION) .
+	docker run -p 8080:8080 py-server

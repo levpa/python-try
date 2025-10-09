@@ -51,7 +51,7 @@ make release # make release <patch/minor/major>
 python src/server.py
 
 ## Build and run from Docker(DinD) inside devcontainer
-docker build -t py-server . && docker run -p 8080:8080 py-server
+make docker-build
 
 # open browser... observe server logs in terminal
 ```
@@ -59,9 +59,7 @@ docker build -t py-server . && docker run -p 8080:8080 py-server
 ## Debug image labels
 
 ```sh
-export IMAGE=ghcr.io/levpa/python-try:v0.0.14
-
-# Pull the image
+IMAGE=ghcr.io/levpa/python-try:vX.X.X # <-- version from your last tag
 docker pull $IMAGE
 IMAGE_ID=$(docker images --format '{{.Repository}}:{{.Tag}} {{.ID}}' | grep $IMAGE | awk '{print $2}')
 echo -e "\nIMAGE_ID: $IMAGE_ID\n"

@@ -1,3 +1,4 @@
+- 9e9671c syntax fix, broken pipe
 - 99660c4 new version injection
 - 9c481de fix pathes
 - 5900cb6 broken pipe fix
@@ -7,4 +8,3 @@
 - 9c1b00e deps scan, dockerignore
 - f83567d more structured fs
 - 12220b5 precommit hook added to bootstrap, python version bumped to 3.13
-- 9b43cbf  more readme info
