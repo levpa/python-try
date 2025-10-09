@@ -1,3 +1,4 @@
+- 9810c12 types-requests added
 - af1da22 pipe fix
 - 9c1b00e deps scan, dockerignore
 - f83567d more structured fs
@@ -7,4 +8,3 @@
 - 90682e0 changelog added to release
 - c067816 changelog added to release
 - a60af0a changelog added to release
-- a3453a8 pipe fix
