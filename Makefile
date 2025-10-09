@@ -9,17 +9,17 @@ verify:
 
 lint:
 	@echo "🔍 Linting with ruff and mypy..."
-	@ruff check . --exit-zero
-	@mypy . --ignore-missing-imports
+	@ruff check src/ --exit-zero
+	@mypy src/ --ignore-missing-imports
 
 test:
 	@echo "🧪 Running tests..."
-	@pytest --disable-warnings --maxfail=1 
+	@pytest tests/ --disable-warnings --maxfail=1 
 	@echo "✅ Tests completed."
 
 check-build:
 	@echo "🧱 Checking Python build integrity..."
-	@python -m compileall -q .
+	@python -m compileall -q src/
 	@python -m pip check
 # 	@echo "🐳 Building Docker image..."
 # 	@docker build -t myserver .

@@ -31,7 +31,7 @@ Ctrl + Shift + P: Dev Containers: Open Container/Rebuild Container.
 ## Main dev commands
 ```sh
 # install deps if needed
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 
 # CI test
 make verify lint test check-build

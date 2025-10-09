@@ -1,3 +1,4 @@
+- 5900cb6 broken pipe fix
 - a71690a broken pipe fix
 - 9810c12 types-requests added
 - af1da22 pipe fix
@@ -7,4 +8,3 @@
 - 9b43cbf  more readme info
 - e859d99 check all stuff
 - 90682e0 changelog added to release
-- c067816 changelog added to release
