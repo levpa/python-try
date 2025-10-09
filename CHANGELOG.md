@@ -1,3 +1,4 @@
+- a71690a broken pipe fix
 - 9810c12 types-requests added
 - af1da22 pipe fix
 - 9c1b00e deps scan, dockerignore
@@ -7,4 +8,3 @@
 - e859d99 check all stuff
 - 90682e0 changelog added to release
 - c067816 changelog added to release
-- a60af0a changelog added to release
