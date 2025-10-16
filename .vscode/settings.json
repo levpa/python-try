@@ -1,0 +1,26 @@
+// .vscode/settings.json
+{
+  // 🐍 Python & Pylance
+  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
+  "python.analysis.typeCheckingMode": "basic",
+  "python.analysis.autoImportCompletions": true,
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.useLibraryCodeForTypes": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.python",
+    "editor.formatOnSave": true,
+  },
+  "editor.codeActionsOnSave": [
+    "source.organizeImports"
+  ],
+  // 🔍 GitLens
+  "gitlens.defaultDateFormat": "YYYY-MM-DD",
+  "gitlens.defaultTimeFormat": "HH:mm",
+  "gitlens.hovers.enabled": true,
+  "gitlens.codeLens.enabled": true,
+  "gitlens.currentLine.enabled": true,
+  "gitlens.statusBar.enabled": true,
+  // 📁 Path Intellisense
+  "path-intellisense.autoSlashAfterDirectory": true,
+  "path-intellisense.extensionOnImport": true,
+}

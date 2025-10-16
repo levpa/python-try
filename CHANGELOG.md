@@ -1,3 +1,4 @@
+- 35f427a minor fixes
 - 8679710 Merge remote-tracking branch 'refs/remotes/origin/main'
 - 403c03e ignore in dependabot
 - 7facfd1 Merge pull request #3 from levpa/dependabot/pip/src/types-requests-2.32.4.20250913
@@ -7,4 +8,3 @@
 - d370465 minor fixes
 - 881bb4e local make docker-build
 - 9e9671c syntax fix, broken pipe
-- 99660c4 new version injection
