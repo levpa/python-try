@@ -31,9 +31,6 @@ make test
 
 echo "🧱 Running make check-build..."
 make check-build
-
-echo "Write commit history to changelog..."
-make chlog-write
 EOF
 
 chmod +x "$HOOK_PATH"

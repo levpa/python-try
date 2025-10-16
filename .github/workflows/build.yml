@@ -3,7 +3,7 @@ name: Test/Build/Push to GHCR
 on:
   push:
     tags:
-      - 'v*'
+      - "v*"
 
 permissions:
   contents: read
@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with:
-          python-version: '3.13'
+          python-version: "3.13"
 
       - name: Install python tools and project deps
         run: |
@@ -31,13 +31,15 @@ jobs:
           make version-inject
 
       - name: 🚀 Extract version metadata from version.py
+        id: meta
         run: |
-          eval $(awk -F= '{gsub(/'\''/, "", $2); gsub(/^ +| +$$/, "", $2); gsub(/ /, "", $1); print $1"=\"" $2 "\"" }' src/version.py)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV
-          echo "COMMIT=$COMMIT" >> $GITHUB_ENV
-          echo "DATE=$BUILD_DATE" >> $GITHUB_ENV
-          echo "REPO=https://github.com/${{ github.repository }}" >> $GITHUB_ENV
-          echo "REGISTRY=ghcr.io/levpa/python-try" >> $GITHUB_ENV
+          eval $(awk -F= '{gsub(/'\''/, "", $2); gsub(/^ +| +$$/, "", $2); \
+            gsub(/ /, "", $1); print $1"=\"" $2 "\"" }' src/version.py)
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "COMMIT=$COMMIT" >> $GITHUB_OUTPUT
+          echo "DATE=$BUILD_DATE" >> $GITHUB_OUTPUT
+          echo "REPO=https://github.com/${{ github.repository }}" >> $GITHUB_OUTPUT
+          echo "REGISTRY=ghcr.io/levpa/python-try" >> $GITHUB_OUTPUT
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -54,13 +56,15 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.REGISTRY }}:${{ env.VERSION }},${{ env.REGISTRY }}:latest
-          cache-from: type=registry,ref=${{ env.REGISTRY }}:buildcache
-          cache-to: type=registry,ref=${{ env.REGISTRY }}:buildcache,mode=max
+          tags: ${{ steps.meta.outputs.REGISTRY }}:${{ steps.meta.outputs.VERSION }},${{ steps.meta.outputs.REGISTRY }}:latest
+          cache-from: type=registry,ref=${{ steps.meta.outputs.REGISTRY }}:buildcache
+          cache-to: type=registry,ref=${{ steps.meta.outputs.REGISTRY }}:buildcache,mode=max
           labels: |
-            org.opencontainers.image.source=${{ env.REPO }}
-            org.opencontainers.image.version=${{ env.VERSION }}
-            org.opencontainers.image.revision=${{ env.COMMIT }}
-            org.opencontainers.image.created=${{ env.DATE }}
+            org.opencontainers.image.source=${{ steps.meta.outputs.REPO }}
+            org.opencontainers.image.version=${{ steps.meta.outputs.VERSION }}
+            org.opencontainers.image.revision=${{ steps.meta.outputs.COMMIT }}
+            org.opencontainers.image.created=${{ steps.meta.outputs.DATE }}
             org.opencontainers.image.description=minimalistic Python image for backend development
             org.opencontainers.image.licenses=MIT
+            org.opencontainers.image.vendor=LevArc
+            org.opencontainers.image.documentation=https://github.com/levpa/python-try

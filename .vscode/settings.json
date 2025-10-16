@@ -7,11 +7,16 @@
   "python.analysis.diagnosticMode": "workspace",
   "python.analysis.useLibraryCodeForTypes": true,
   "[python]": {
-    "editor.defaultFormatter": "ms-python.python",
-    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "ms-python.python"
   },
+  "yaml.validate": true,
+  "yaml.format.enable": true,
+  "yaml.schemas": {},
+  "yaml.customTags": [],
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": [
-    "source.organizeImports"
+    "source.organizeImports",
+    "source.fixAll"
   ],
   // 🔍 GitLens
   "gitlens.defaultDateFormat": "YYYY-MM-DD",

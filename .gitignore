@@ -1,3 +1,7 @@
+# no changelog, no version, (they are created in pipelines)
+CHANGELOG.md
+src/version.py
+
 # version ignore
 src/version.py
 

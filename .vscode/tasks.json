@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Lint YAML",
+      "type": "shell",
+      "command": "yamllint .github/workflows",
+      "problemMatcher": []
+    }
+  ]
+}

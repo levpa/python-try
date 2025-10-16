@@ -14,7 +14,8 @@
     "ghcr.io/devcontainers/features/github-cli:1": {},
     "ghcr.io/devcontainers/features/azure-cli:1": {},
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers-extra/features/ruff:1": {}
+    "ghcr.io/devcontainers-extra/features/ruff:1": {},
+    "ghcr.io/devcontainers-extra/features/yamllint:2": {}
   },
   "customizations": {
     "vscode": {
@@ -24,6 +25,7 @@
         "ms-vscode.azurecli",
         "github.vscode-github-actions",
         "eamodio.gitlens",
+        "redhat.vscode-yaml",
         "christian-kohler.path-intellisense"
       ]
     }

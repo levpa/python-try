@@ -13,6 +13,7 @@ lint:
 	@echo "🔍 Linting with ruff and mypy..."
 	@ruff check $(SRC_FOLDER)/ --exit-zero
 	@mypy $(SRC_FOLDER)/ --ignore-missing-imports
+	@yamllint .github/workflows
 
 test:
 	@echo "🧪 Running tests..."
@@ -57,3 +58,45 @@ docker-build:
 		--label registry=ghcr.io/$(REPO) \
 		-t ghcr.io/$(REPO):$(VERSION) .
 	docker run -p 8080:8080 py-server
+
+CHLOG_LENGTH ?= 15
+BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+
+chlog:
+	@echo "# 📦 Changelog" > CHANGELOG.md
+	@echo "" >> CHANGELOG.md
+	@echo "## Date: $(shell date '+%Y-%m-%d')" >> CHANGELOG.md
+	@echo "" >> CHANGELOG.md
+	@rm -f .chlog-seen
+
+	@echo "\n### ✨ Features" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^feat:" --pretty=format:"- %h %d %s (%ad)" --date=relative \
+	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "" >> CHANGELOG.md
+
+	@echo "\n### 🐛 Fixes" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^fix:" --pretty=format:"- %h %d %s (%ad)" --date=relative \
+	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "" >> CHANGELOG.md
+
+	@echo "\n### 🧹 Chores & Refactors" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^chore:\|^refactor:" --pretty=format:"- %h %d %s (%ad)" --date=relative \
+	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "" >> CHANGELOG.md
+
+	@echo "\n### 📌 Other Commits" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --pretty=format:"- %h %d %s (%ad)" --date=relative | while read line; do \
+	  hash=$$(echo $$line | cut -d' ' -f2); \
+	  grep -q $$hash .chlog-seen || echo "$$line" >> CHANGELOG.md; \
+	done
+	@echo "" >> CHANGELOG.md
+	@sed -i -E \
+		-e 's/HEAD -> $(BRANCH),? ?//g' \
+		-e 's/origin\/$(BRANCH),? ?//g' \
+		-e 's/origin\/HEAD,? ?//g' \
+		-e 's/ ,/,/g; s/, \)/)/g' \
+		CHANGELOG.md
+
+	@rm -f .chlog-seen
+	@git add CHANGELOG.md
+	@cat CHANGELOG.md
