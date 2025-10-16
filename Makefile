@@ -67,7 +67,7 @@ chlog:
 	@git log -n $(CHLOG_LENGTH) --grep="^feat" --pretty=format:"%h" | tee -a .chlog-seen | \
 		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
 
-	@printf "### 🐛 Fixes\n\n" >> CHANGELOG.md
+	@printf "\n\n### 🐛 Fixes\n\n" >> CHANGELOG.md
 	@git log -n $(CHLOG_LENGTH) --grep="^fix" --pretty=format:"%h" | tee -a .chlog-seen | \
 		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
 
