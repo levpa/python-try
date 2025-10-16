@@ -11,14 +11,14 @@ jobs:
     steps:
       - name: 🧱 Checkout code
         uses: actions/checkout@v5
-
+        with:
+          fetch-depth: 0
+          fetch-tags: true
       - name: 🔐 Authenticate GitHub CLI
         run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: 📝 Generate CHANGELOG.md
         run: |
-          git --version
-          make --version
           make chlog
 
       - name: 🚀 Create GitHub Release
