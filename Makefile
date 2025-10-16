@@ -52,7 +52,7 @@ docker-build:
 		--label repo=https://github.com/$(REPO) \
 		--label registry=ghcr.io/$(REPO) \
 		-t ghcr.io/$(REPO):$(VERSION) .
-	docker run -p 8080:8080 py-server
+	docker run -p 8080:8080 ghcr.io/$(REPO):$(VERSION)
 
 CHLOG_LENGTH ?= 20
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)

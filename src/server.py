@@ -1,13 +1,17 @@
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 import sys
 import time
+import platform
 
 try:
     from version import VERSION, COMMIT, BUILD_DATE
 except ImportError:
     VERSION = COMMIT = BUILD_DATE = "unknown"
 
+PYTHON_VERSION = platform.python_version()
+
 print(f"\nVersion: {VERSION}, Commit: {COMMIT}, Built: {BUILD_DATE}\n")
+print(f"Running on Python {PYTHON_VERSION}\n")
 sys.stdout.flush()
 
 class SimpleHandler(BaseHTTPRequestHandler):
@@ -26,7 +30,7 @@ class SimpleHandler(BaseHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-type", "text/plain; charset=utf-8")
         self.end_headers()
-        self.wfile.write(b"Hello from Python 3.12 HTTP server!\n")
+        self.wfile.write(f"Hello from Python {PYTHON_VERSION} HTTP server!\n".encode("utf-8"))
 
         duration = time.time() - start
         print(f"⏱️ Served {path} in {duration:.3f}s", file=sys.stderr)
