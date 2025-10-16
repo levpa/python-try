@@ -3,7 +3,7 @@
 SRC_FOLDER := src
 verify:
 	@echo "🔍 Verifying Python environment..."
-	@python3.13 --version
+	@python3.14 --version
 	@pip --version
 	@pip check
 	@echo "✅ Environment verification complete."
