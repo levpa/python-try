@@ -59,28 +59,31 @@ BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 VERSION := $(shell git describe --tags --abbrev=0)
 
 chlog:
-	@echo "# Changelog for $(VERSION)\n" > CHANGELOG.md
+	@printf "# Changelog for $(VERSION)\n" > CHANGELOG.md
 	@printf "## Date: $(shell date '+%Y-%m-%d')\n\n" >> CHANGELOG.md
 	@rm -f .chlog-seen
 
-	@printf "### ✨ Features\n\n" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --grep="^feat" --pretty=format:"%h" | tee -a .chlog-seen | \
-		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
+	@echo "\n### ✨ Features" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^feat" --pretty=format:"- %h %d %s (%ad)" --date=relative \
+	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "" >> CHANGELOG.md
 
-	@printf "\n\n### 🐛 Fixes\n\n" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --grep="^fix" --pretty=format:"%h" | tee -a .chlog-seen | \
-		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
+	@echo "\n### 🐛 Fixes" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^fix" --pretty=format:"- %h %d %s (%ad)" --date=relative \
+	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "" >> CHANGELOG.md
 
-	@printf "\n\n### 🧹 Chores & Refactors\n\n" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --grep="^chore\|^refactor" --pretty=format:"%h" | tee -a .chlog-seen | \
-		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
+	@echo "\n### 🧹 Chores & Refactors" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^chore\|^refactor" --pretty=format:"- %h %d %s (%ad)" --date=relative \
+	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "" >> CHANGELOG.md
 
-	@printf "\n\n### 📌 Other Commits\n\n" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --pretty=format:"%h" | while read hash; do \
-		grep -q $$hash .chlog-seen || \
-		git log -1 --pretty=format:"- $$hash %d %s (%ad)" --date=relative $$hash >> CHANGELOG.md; \
-	  printf "\n" >> CHANGELOG.md; \
+	@echo "\n### 📌 Other Commits" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --pretty=format:"- %h %d %s (%ad)" --date=relative | while read line; do \
+	  hash=$$(echo $$line | cut -d' ' -f2); \
+	  grep -q $$hash .chlog-seen || echo "$$line" >> CHANGELOG.md; \
 	done
+	@echo "" >> CHANGELOG.md
 
 	@sed -i -E \
 		-e 's/HEAD -> [^,)]+,? ?//g' \
