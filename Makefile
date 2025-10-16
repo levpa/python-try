@@ -64,27 +64,29 @@ chlog:
 	@echo "" >> CHANGELOG.md
 	@rm -f .chlog-seen
 
-	@echo "\n### ✨ Features" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --grep="^feat:" --pretty=format:"- %h %d %s (%ad)" --date=relative \
-	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "### ✨ Features" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^feat" --pretty=format:"%h" | tee -a .chlog-seen | \
+		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
 	@echo "" >> CHANGELOG.md
 
-	@echo "\n### 🐛 Fixes" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --grep="^fix:" --pretty=format:"- %h %d %s (%ad)" --date=relative \
-	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "### 🐛 Fixes" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^fix" --pretty=format:"%h" | tee -a .chlog-seen | \
+		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
 	@echo "" >> CHANGELOG.md
 
-	@echo "\n### 🧹 Chores & Refactors" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --grep="^chore:\|^refactor:" --pretty=format:"- %h %d %s (%ad)" --date=relative \
-	| tee -a CHANGELOG.md | cut -d' ' -f2 >> .chlog-seen
+	@echo "### 🧹 Chores & Refactors" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --grep="^chore\|^refactor" --pretty=format:"%h" | tee -a .chlog-seen | \
+		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
 	@echo "" >> CHANGELOG.md
 
-	@echo "\n### 📌 Other Commits" >> CHANGELOG.md
-	@git log -n $(CHLOG_LENGTH) --pretty=format:"- %h %d %s (%ad)" --date=relative | while read line; do \
-	  hash=$$(echo $$line | cut -d' ' -f2); \
-	  grep -q $$hash .chlog-seen || echo "$$line" >> CHANGELOG.md; \
+	@echo "### 📌 Other Commits" >> CHANGELOG.md
+	@git log -n $(CHLOG_LENGTH) --pretty=format:"%h" | while read hash; do \
+		grep -q $$hash .chlog-seen || \
+		git log -1 --pretty=format:"- $$hash %d %s (%ad)" --date=relative $$hash >> CHANGELOG.md; \
+		echo "" >> CHANGELOG.md; \
 	done
 	@echo "" >> CHANGELOG.md
+
 	@sed -i -E \
 		-e 's/HEAD -> $(BRANCH),? ?//g' \
 		-e 's/origin\/$(BRANCH),? ?//g' \
