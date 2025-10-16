@@ -11,12 +11,12 @@ sudo ln -sf /usr/share/zoneinfo/Europe/Kyiv /etc/localtime
 sudo dpkg-reconfigure -f noninteractive tzdata
 
 # Ensure Python 3.12 is available
-if ! command -v python3.13 &> /dev/null; then
-  echo "❌ Python 3.13 not found. Please install it in the container base image."
+if ! command -v python3.14 &> /dev/null; then
+  echo "❌ Python 3.14 not found. Please install it in the container base image."
   exit 1
 fi
 
-python3.13 -m pip install --upgrade pip
+python3.14 -m pip install --upgrade pip
 pip install -r src/requirements.txt
 
 # Run Makefile targets

@@ -1,7 +1,6 @@
 .PHONY: verify test hook lint check-build precommit release version-inject docker-build chlog
 
 SRC_FOLDER := src
-REPO := levpa/python-try
 verify:
 	@echo "🔍 Verifying Python environment..."
 	@python3.13 --version
@@ -34,6 +33,7 @@ release:
 	@echo "🚀 Releasing version bump..."
 	bash scripts/bump.sh $(BUMP_TYPE)
 
+REPO := levpa/python-try
 VERSION := $(shell git tag --sort=-v:refname | grep -E '^v?[0-9]+\.[0-9]+\.[0-9]+$$' | head -n 1)
 COMMIT := $(shell git rev-parse --short HEAD)
 BUILD_DATE := $(shell date -u +%Y-%m-%dT%H:%M:%SZ)
@@ -54,10 +54,9 @@ docker-build:
 		-t ghcr.io/$(REPO):$(VERSION) .
 	docker run -p 8080:8080 py-server
 
-CHLOG_LENGTH ?= 5
+CHLOG_LENGTH ?= 20
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
 VERSION := $(shell git describe --tags --abbrev=0)
-
 
 chlog:
 	@echo "# Changelog for $(VERSION)\n" > CHANGELOG.md

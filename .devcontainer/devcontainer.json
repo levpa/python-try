@@ -1,6 +1,6 @@
 {
   "name": "Python 3",
-  "image": "mcr.microsoft.com/devcontainers/python:3.13-bookworm",
+  "image": "mcr.microsoft.com/devcontainers/python:3.14-bookworm",
   "remoteUser": "vscode",
   "mounts": [
     "source=/run/host-services/ssh-auth.sock,target=/ssh-agent,type=bind",
@@ -26,7 +26,8 @@
         "github.vscode-github-actions",
         "eamodio.gitlens",
         "redhat.vscode-yaml",
-        "christian-kohler.path-intellisense"
+        "christian-kohler.path-intellisense",
+        "streetsidesoftware.code-spell-checker"
       ]
     }
   },

@@ -64,7 +64,3 @@ jobs:
             org.opencontainers.image.version=${{ steps.meta.outputs.VERSION }}
             org.opencontainers.image.revision=${{ steps.meta.outputs.COMMIT }}
             org.opencontainers.image.created=${{ steps.meta.outputs.DATE }}
-            org.opencontainers.image.description=minimalistic Python image for backend development
-            org.opencontainers.image.licenses=MIT
-            org.opencontainers.image.vendor=LevArc
-            org.opencontainers.image.documentation=https://github.com/levpa/python-try

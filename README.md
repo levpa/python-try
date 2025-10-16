@@ -36,15 +36,12 @@ pip install -r src/requirements.txt
 # CI test
 make verify lint test check-build
 
-# Commit add and signing with SSH keys: 
-git sm "new signed commit"
-git push
+# add and commit files: 
+git add -A && git commit -m "new signed commit" && git push
 
-## bump version and push tags to remote (default -> patch version)
-
+## bump version and push tags to remote (default behavior -> patch version)
 # !! runs build -> push pipeline to ghcr
 # !! runs release pipeline to make release on github
-
 make release # make release <patch/minor/major>
 
 ## Server local test
