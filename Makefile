@@ -54,38 +54,34 @@ docker-build:
 		-t ghcr.io/$(REPO):$(VERSION) .
 	docker run -p 8080:8080 py-server
 
-CHLOG_LENGTH ?= 15
+CHLOG_LENGTH ?= 5
 BRANCH := $(shell git rev-parse --abbrev-ref HEAD)
+VERSION := $(shell git describe --tags --abbrev=0)
+
 
 chlog:
-	@echo "# 📦 Changelog" > CHANGELOG.md
-	@echo "" >> CHANGELOG.md
-	@echo "## Date: $(shell date '+%Y-%m-%d')" >> CHANGELOG.md
-	@echo "" >> CHANGELOG.md
+	@echo "# Changelog for $(VERSION)\n" > CHANGELOG.md
+	@printf "## Date: $(shell date '+%Y-%m-%d')\n\n" >> CHANGELOG.md
 	@rm -f .chlog-seen
 
-	@echo "### ✨ Features" >> CHANGELOG.md
+	@printf "### ✨ Features\n\n" >> CHANGELOG.md
 	@git log -n $(CHLOG_LENGTH) --grep="^feat" --pretty=format:"%h" | tee -a .chlog-seen | \
 		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
-	@echo "" >> CHANGELOG.md
 
-	@echo "### 🐛 Fixes" >> CHANGELOG.md
+	@printf "### 🐛 Fixes\n\n" >> CHANGELOG.md
 	@git log -n $(CHLOG_LENGTH) --grep="^fix" --pretty=format:"%h" | tee -a .chlog-seen | \
 		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
-	@echo "" >> CHANGELOG.md
 
-	@echo "### 🧹 Chores & Refactors" >> CHANGELOG.md
+	@printf "\n\n### 🧹 Chores & Refactors\n\n" >> CHANGELOG.md
 	@git log -n $(CHLOG_LENGTH) --grep="^chore\|^refactor" --pretty=format:"%h" | tee -a .chlog-seen | \
 		xargs -I{} git log -1 --pretty=format:"- {} %d %s (%ad)" --date=relative {} >> CHANGELOG.md
-	@echo "" >> CHANGELOG.md
 
-	@echo "### 📌 Other Commits" >> CHANGELOG.md
+	@printf "\n\n### 📌 Other Commits\n\n" >> CHANGELOG.md
 	@git log -n $(CHLOG_LENGTH) --pretty=format:"%h" | while read hash; do \
 		grep -q $$hash .chlog-seen || \
 		git log -1 --pretty=format:"- $$hash %d %s (%ad)" --date=relative $$hash >> CHANGELOG.md; \
-		echo "" >> CHANGELOG.md; \
+	  printf "\n" >> CHANGELOG.md; \
 	done
-	@echo "" >> CHANGELOG.md
 
 	@sed -i -E \
 		-e 's/HEAD -> $(BRANCH),? ?//g' \

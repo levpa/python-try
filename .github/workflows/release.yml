@@ -16,7 +16,10 @@ jobs:
         run: echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
 
       - name: 📝 Generate CHANGELOG.md
-        run: make chlog
+        run: |
+          git --version
+          make --version
+          make chlog
 
       - name: 🚀 Create GitHub Release
         run: |
