@@ -1,4 +1,4 @@
-.PHONY: verify test hook lint check-build precommit release chlog-write version-inject docker-build
+.PHONY: verify test hook lint check-build precommit release version-inject docker-build chlog
 
 SRC_FOLDER := src
 REPO := levpa/python-try
@@ -24,10 +24,6 @@ check-build:
 	@echo "🧱 Checking Python build integrity..."
 	@python -m compileall -q $(SRC_FOLDER)/
 	@python -m pip check
-
-chlog-write:
-	@git log -n 10 --pretty=format:"- %h %s" > CHANGELOG.md
-	@cat CHANGELOG.md
 
 precommit:
 	bash ./scripts/hook.sh
@@ -97,5 +93,4 @@ chlog:
 		CHANGELOG.md
 
 	@rm -f .chlog-seen
-	@git add CHANGELOG.md
 	@cat CHANGELOG.md
