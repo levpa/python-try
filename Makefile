@@ -27,7 +27,6 @@ check-build:
 
 chlog-write:
 	@git log -n 10 --pretty=format:"- %h %s" > CHANGELOG.md
-	@git add CHANGELOG.md
 	@cat CHANGELOG.md
 
 precommit:
