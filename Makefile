@@ -84,10 +84,12 @@ chlog:
 	done
 
 	@sed -i -E \
-		-e 's/HEAD -> $(BRANCH),? ?//g' \
-		-e 's/origin\/$(BRANCH),? ?//g' \
+		-e 's/HEAD -> [^,)]+,? ?//g' \
+		-e 's/origin\/[^,)]+,? ?//g' \
+		-e 's/HEAD,? ?//g' \
 		-e 's/origin\/HEAD,? ?//g' \
-		-e 's/ ,/,/g; s/, \)/)/g' \
+		-e 's/ ,/,/g' \
+		-e 's/, \)/)/g' \
 		CHANGELOG.md
 
 	@rm -f .chlog-seen
